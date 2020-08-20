@@ -9,14 +9,19 @@
 #include <SDL.h>
 #include "TextObject.h"
 #include "GameObject.h"
+#include "Player.h"
 #include "Scene.h"
 #include "FPSCounter.h"
 #include "Components.h"
 #include "CommandInputHandler.h"
+#include "Pickup.h"
+#include "GameObserver.h"
+#include "GameManager.h"
+#include "Texture2D.h"
 using namespace std;
 using namespace std::chrono;
 
-void elfgine::ELFgine::Initialize()
+void elfgine::ELFgine::Initialize(int windowWidth, int windowHeight)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
@@ -27,8 +32,8 @@ void elfgine::ELFgine::Initialize()
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
+		windowWidth,
+		windowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr) 
@@ -36,59 +41,9 @@ void elfgine::ELFgine::Initialize()
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
-	Renderer::GetInstance().Init(m_Window);
+	Renderer::GetInstance().Init(m_Window, windowWidth, windowHeight);
 }
 
-/**
- * Code constructing the scene world starts here
- */
-void elfgine::ELFgine::LoadGame()
-{
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-
-	//Make background
-	auto go = std::make_shared<GameObject>();
-	auto pBackRender = std::make_shared<RenderComponent>(go->GetTransform());
-	pBackRender->SetTexture("background.jpg", "Background");
-	go->AddComponent(pBackRender);
-	scene.Add(go);
-
-	//Make logo
-	go = std::make_shared<GameObject>();
-	auto pLogoRender = std::make_shared<RenderComponent>(go->GetTransform());
-	pLogoRender->SetTexture("logo.png", "Logo");
-	go->AddComponent(pLogoRender);
-	go->SetPosition(216, 180);
-	
-	scene.Add(go);
-
-	//Make test character
-	go = std::make_shared<GameObject>();
-	auto characterSprite = std::make_shared<RenderComponent>(go->GetTransform());
-	characterSprite->SetTexture("Naiian.png", "Naiian");
-	go->AddComponent(characterSprite, go);
-
-	auto rb = std::make_shared<RigidBodyComponent>();
-	go->AddComponent(rb, go);
-
-	auto control = std::make_shared<ControlComponent>(rb);
-	//Assign this control to the player
-	auto& commandInput = CommandInputHandler::GetInstance();
-	commandInput.AssignActor(control);
-
-	go->AddComponent(control, go);
-	
-	scene.Add(go);
-
-	//Make Textobject
-	ResourceManager::GetInstance().AddFont("Lingua.otf", 36, "Lingua");
-	SDL_Color color{0,255,0};
-
-	auto to = std::make_shared<TextObject>("TextTest", "Lingua", color);	
-	scene.Add(to);
-
-	m_pFPSCounter = std::make_shared<FPSCounter>(to);
-}
 
 void elfgine::ELFgine::Cleanup()
 {
@@ -100,14 +55,7 @@ void elfgine::ELFgine::Cleanup()
 }
 
 void elfgine::ELFgine::Run()
-{
-	Initialize();
-
-	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
-
-	LoadGame();
-
+{	
 	{
 		auto t = std::chrono::high_resolution_clock::now();
 		auto& sceneManager = SceneManager::GetInstance();
@@ -127,6 +75,7 @@ void elfgine::ELFgine::Run()
 			commandInput.HandleCommands();
 			commandInput.HandleContinuous();
 			doContinue = !input.HasQuit();
+			sceneManager.CheckToDelete();
 			while (lag >= m_msPerFrame)
 			{
 				sceneManager.FixedUpdate();
@@ -134,11 +83,15 @@ void elfgine::ELFgine::Run()
 			}
 			sceneManager.Update(deltaTime);
 			rendered.Update(deltaTime);
-			m_pFPSCounter->Update(deltaTime);
 			t += std::chrono::milliseconds(m_msPerFrame);
 			std::this_thread::sleep_until(t);
 		}
 	}
 
 	Cleanup();
+}
+
+void elfgine::ELFgine::MakePickup()
+{
+	
 }

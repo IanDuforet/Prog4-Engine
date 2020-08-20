@@ -12,6 +12,7 @@ namespace elfgine
 		void Update(float deltaTime);
 		void FixedUpdate();
 		void Render();
+		void CheckToDelete();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

@@ -18,6 +18,11 @@ void elfgine::TransformComponent::SetPosition(float x, float y)
 	m_pTransform->SetPosition(x, y);
 }
 
+void elfgine::TransformComponent::SetPosition(glm::vec2 pos)
+{
+	m_pTransform->SetPosition(pos);
+}
+
 void elfgine::TransformComponent::Update(float)
 {
 	

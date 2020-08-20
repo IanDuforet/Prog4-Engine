@@ -10,6 +10,7 @@ namespace elfgine
 		~Transform() = default;
 		const glm::vec2& GetPosition() const;
 		void SetPosition(float x, float y);
+		void SetPosition(glm::vec2 newPos);
 		void SetX(float x);
 		void SetY(float x);
 	private:

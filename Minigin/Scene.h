@@ -12,7 +12,7 @@ namespace elfgine
 
 		void Update(float deltaTime);
 		void FixedUpdate();
-		void Render();
+		void CheckToDelete();
 		
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -25,8 +25,9 @@ namespace elfgine
 
 		std::string m_Name;
 		std::vector < std::shared_ptr<SceneObject>> m_Objects{};
-
-		static unsigned int m_IdCounter; 
+		
+		static unsigned int m_IdCounter;
+	
 	};
 
 }

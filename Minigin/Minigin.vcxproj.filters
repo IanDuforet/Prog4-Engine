@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Resource Files\Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{b8c339d1-a8fc-4912-8296-c2d8639bc3a9}</UniqueIdentifier>
     </Filter>
@@ -43,9 +35,6 @@
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneObject.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
@@ -93,11 +82,32 @@
     <ClInclude Include="Command.h">
       <Filter>HelperClasses</Filter>
     </ClInclude>
-    <ClInclude Include="CommandInputHandler.h">
-      <Filter>HelperClasses</Filter>
-    </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandInputHandler.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObserver.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +171,23 @@
     <ClCompile Include="Command.cpp">
       <Filter>HelperClasses</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Gameobjects</Filter>
+    </ClCompile>
     <ClCompile Include="CommandInputHandler.cpp">
-      <Filter>HelperClasses</Filter>
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObserver.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

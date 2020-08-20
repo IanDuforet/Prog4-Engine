@@ -33,7 +33,8 @@ void elfgine::CommandInputHandler::HandleCommands()
 	{
 		pReceived = m_pManager.ProcessInput();
 		if (pReceived)
-			pReceived->execute(m_pControlPlayer1);
+			if(m_pControlPlayer1.lock())
+				pReceived->execute(m_pControlPlayer1);
 	} while (pReceived);
 }
 
@@ -42,5 +43,6 @@ void elfgine::CommandInputHandler::HandleContinuous()
 	std::shared_ptr<Command> pReceived;
 	pReceived = m_pManager.ProcessContinuous();
 	if (pReceived)
-		pReceived->execute(m_pControlPlayer1);
+		if(m_pControlPlayer1.lock())
+			pReceived->execute(m_pControlPlayer1);
 }

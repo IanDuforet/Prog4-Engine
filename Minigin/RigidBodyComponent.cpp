@@ -6,38 +6,31 @@
 
 void elfgine::RigidBodyComponent::MoveLeft(float value)
 {
-	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	transform->SetX(transform->GetPosition().x + value);
+	m_Velocity.x = -value;
 }
 
 void elfgine::RigidBodyComponent::MoveRight(float value)
 {
-	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	transform->SetX(transform->GetPosition().x + value);
+	m_Velocity.x = value;
 }
 
 void elfgine::RigidBodyComponent::MoveUp(float value)
 {
-	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	transform->SetY(transform->GetPosition().y + value);
+	m_Velocity.y = value;
 }
 
 void elfgine::RigidBodyComponent::MoveDown(float value)
 {
-	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	transform->SetY(transform->GetPosition().y + value);
+	m_Velocity.y = -value;
 }
 
-void elfgine::RigidBodyComponent::Update(float)
+void elfgine::RigidBodyComponent::Update(float deltaTime)
 {
-	/*std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	float newX = (float)transform->GetPosition().x + ((float)m_Velocity.x * deltaTime);
-	float newY = (float)transform->GetPosition().y + ((float)m_Velocity.y * deltaTime);
-	
-	transform->SetPosition(newX, newY);
-	
-	m_Velocity.x = 0;
-	m_Velocity.y = 0;*/
+	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
+	glm::vec2 pos = transform->GetPosition();
+	glm::vec2 newPos = pos + (m_Velocity * deltaTime);
+	transform->SetPosition(newPos);
+	m_Velocity = { 0,0 };
 }
 
 

@@ -27,16 +27,22 @@ void elfgine::GameObject::SetPosition(float x, float y)
 	m_pTransformComponent->SetPosition(x, y);
 }
 
+void elfgine::GameObject::SetPosition(glm::vec2 pos)
+{
+	m_pTransformComponent->SetPosition(pos);
+}
+
 std::shared_ptr<elfgine::Transform> elfgine::GameObject::GetTransform() const
 {
 	return m_pTransformComponent->GetTransform();
 }
 
-void elfgine::GameObject::AddComponent(std::shared_ptr<BaseComponent> pComponent, std::shared_ptr<GameObject> pGameObject)
+void elfgine::GameObject::AddComponent(std::shared_ptr<BaseComponent> pComponent, std::weak_ptr<GameObject> pGameObject)
 {
 	pComponent->AddGameObject(pGameObject);
 	m_pComponents.push_back(pComponent);
 }
+
 
 void elfgine::GameObject::AddComponent(std::shared_ptr<BaseComponent> pComponent)
 {
@@ -44,6 +50,14 @@ void elfgine::GameObject::AddComponent(std::shared_ptr<BaseComponent> pComponent
 }
 
 elfgine::GameObject::GameObject()
-	: m_pTransformComponent(new TransformComponent(std::make_shared<Transform>(glm::vec2{0,0})))
+	: m_pTransformComponent(std::make_shared<TransformComponent>(std::make_shared<Transform>(glm::vec2{0,0})))
 {
+}
+
+void elfgine::GameObject::AddGameObjectToComponents(std::shared_ptr<GameObject> pGameObject)
+{
+	for (std::shared_ptr<BaseComponent> c : m_pComponents)
+	{
+		c->AddGameObject(pGameObject);
+	}
 }

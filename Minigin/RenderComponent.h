@@ -10,10 +10,11 @@ namespace elfgine
 		RenderComponent(std::shared_ptr<Transform> pTransform);
 		virtual ~RenderComponent() = default;
 		void Update(float deltaTime) override;
-		void SetTexture(const std::string& fileName, const std::string& keyName);
+		void SetTexture(const std::string& keyName);
 		void ChangeTexture(std::shared_ptr<Texture2D> pTexture);
 		int GetTextureWidth() const;
 		int GetTextureHeight() const;
+		std::shared_ptr<Texture2D> GetTexture();
 		
 	private:
 		std::weak_ptr<Transform> m_pTransform;

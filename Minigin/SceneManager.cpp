@@ -19,6 +19,14 @@ void elfgine::SceneManager::FixedUpdate()
 	}
 }
 
+void elfgine::SceneManager::CheckToDelete()
+{
+	for (auto& scene : m_Scenes)
+	{
+		scene->CheckToDelete();
+	}
+}
+
 elfgine::Scene& elfgine::SceneManager::CreateScene(const std::string& name)
 {
 	const auto scene = std::shared_ptr<Scene>(new Scene(name));

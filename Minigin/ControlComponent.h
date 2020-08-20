@@ -10,7 +10,8 @@ namespace elfgine
 		ControlComponent(std::shared_ptr<RigidBodyComponent> pRigidBody);
 		~ControlComponent() = default;
 		void Update(float) override {};
-		
+
+		void SetSpeed(int speed);
 		void MoveLeft();
 		void MoveRight();
 		void MoveUp();

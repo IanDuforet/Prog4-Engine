@@ -37,6 +37,11 @@ void Transform::SetPosition(const float x, const float y)
 	m_Position.y = y;
 }
 
+void Transform::SetPosition(glm::vec2 newPos)
+{
+	m_Position = newPos;
+}
+
 void Transform::SetX(float x)
 {
 	m_Position.x = x;

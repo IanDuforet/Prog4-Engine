@@ -1,0 +1,10 @@
+#pragma once
+#include "ResourceManager.h"
+#include "Components.h"
+#include "Player.h"
+#include "Pickup.h"
+#include "TextObject.h"
+#include "GameManager.h"
+#include "Scene.h"
+#include "GameObserver.h"
+#include "SceneManager.h"
