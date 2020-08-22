@@ -3,15 +3,7 @@
 #include "Command.h"
 #include "InputManager.h"
 
-//Command* received;
-//do
-//{
-//	received = inputmanager::Provess();
-//	if(received)
-//		reveided.execute(controlcomponent);
-//		
-//} while(received);
-//
+
 
 elfgine::CommandInputHandler::CommandInputHandler()
 	: Singleton<elfgine::CommandInputHandler>()

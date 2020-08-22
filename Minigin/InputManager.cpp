@@ -10,24 +10,12 @@ std::shared_ptr<elfgine::Command> elfgine::InputManager::ProcessInput()
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
+		if (e.type == SDL_QUIT) 
+		{
 			m_Quit = true;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
-		if (e.type == SDL_SCANCODE_LEFT)
-		{
-			//return MoveLeft;
-		}
-		if (e.type == SDL_SCANCODE_A)
-		{
-
-		}
 	}
+
 	return nullptr;
 }
 
@@ -46,6 +34,22 @@ std::shared_ptr<elfgine::Command> elfgine::InputManager::ProcessContinuous()
 	if (state[SDL_SCANCODE_DOWN]) {
 		return m_pMoveDown;
 	}
+	if(IsPressed(ControllerButton::DPADLeft))
+	{
+		return m_pMoveLeft;
+	}
+	if (IsPressed(ControllerButton::DPADRight))
+	{
+		return m_pMoveRight;
+	}
+	if (IsPressed(ControllerButton::DPADUp))
+	{
+		return m_pMoveUp;
+	}
+	if (IsPressed(ControllerButton::DPADDown))
+	{
+		return m_pMoveDown;
+	}
 	return nullptr;
 }
 
@@ -54,23 +58,6 @@ bool elfgine::InputManager::HasQuit() const
 	return m_Quit;
 }
 
-
-/*Process InputPlayer2
- *{
- *	bool m_hasJoined
- *	
- *	while
- *	{
- *		keyup{isJoined = true
- *				if(isJoined)
- *				}
- *		keydown{isJoined = true}
- *	}
- *
- *
- *}
- *
-*/
 
 bool elfgine::InputManager::IsPressed(ControllerButton button) const
 {

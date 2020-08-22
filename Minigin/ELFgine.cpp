@@ -91,7 +91,3 @@ void elfgine::ELFgine::Run()
 	Cleanup();
 }
 
-void elfgine::ELFgine::MakePickup()
-{
-	
-}

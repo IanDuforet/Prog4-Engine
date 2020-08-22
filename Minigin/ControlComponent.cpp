@@ -11,6 +11,16 @@ elfgine::ControlComponent::ControlComponent(std::shared_ptr<RigidBodyComponent> 
 
 }
 
+void elfgine::ControlComponent::SetIsOnGrid()
+{
+	m_IsOnGrid = true;
+}
+
+bool elfgine::ControlComponent::GetIsOnGrid()
+{
+	return m_IsOnGrid;
+}
+
 void elfgine::ControlComponent::SetSpeed(int speed)
 {
 	m_Speed = speed;
@@ -18,22 +28,130 @@ void elfgine::ControlComponent::SetSpeed(int speed)
 
 void elfgine::ControlComponent::MoveLeft()
 {
-	m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+	if (m_IsOnGrid)
+	{
+		m_MoveDirection = moveDirection::Left;
+		m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+		m_IsOnGrid = false;
+	}
+	else
+	{
+		switch (m_MoveDirection)
+		{
+		case moveDirection::Left:
+			m_MoveDirection = moveDirection::Left;
+			m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+			break;
+		case moveDirection::Up:
+			m_pRigidBody.lock()->MoveUp(float(m_Speed));
+			break;
+		case moveDirection::Down:
+			m_pRigidBody.lock()->MoveDown(float(m_Speed));
+			break;
+		case moveDirection::Right:
+			m_MoveDirection = moveDirection::Left;
+			m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+			break;
+		default: ;
+		}
+		
+	}
 }
 
 void elfgine::ControlComponent::MoveRight()
 {
-	m_pRigidBody.lock()->MoveRight(float(m_Speed));
+	if (m_IsOnGrid)
+	{
+		m_MoveDirection = moveDirection::Right;
+		m_pRigidBody.lock()->MoveRight(float(m_Speed));
+		m_IsOnGrid = false;
+	}
+	else
+	{
+		switch (m_MoveDirection)
+		{
+		case moveDirection::Right:
+			m_MoveDirection = moveDirection::Right;
+			m_pRigidBody.lock()->MoveRight(float(m_Speed));
+			break;
+		case moveDirection::Up:
+			m_pRigidBody.lock()->MoveUp(float(m_Speed));
+			break;
+		case moveDirection::Down:
+			m_pRigidBody.lock()->MoveDown(float(m_Speed));
+			break;
+		case moveDirection::Left:
+			m_MoveDirection = moveDirection::Right;
+			m_pRigidBody.lock()->MoveRight(float(m_Speed));
+			break;
+		default: ;
+		}
+
+	}
 }
 
 void elfgine::ControlComponent::MoveUp()
 {
-	m_pRigidBody.lock()->MoveUp(float(m_Speed));
+	if (m_IsOnGrid)
+	{
+		m_MoveDirection = moveDirection::Up;
+		m_pRigidBody.lock()->MoveUp(float(m_Speed));
+		m_IsOnGrid = false;
+	}
+	else
+	{
+		switch (m_MoveDirection)
+		{
+		case moveDirection::Right:
+			m_pRigidBody.lock()->MoveRight(float(m_Speed));
+			break;
+		case moveDirection::Up:
+			m_MoveDirection = moveDirection::Up;
+			m_pRigidBody.lock()->MoveUp(float(m_Speed));
+			break;
+		case moveDirection::Left:
+			m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+			break;
+		case moveDirection::Down:
+			m_MoveDirection = moveDirection::Up;
+			m_pRigidBody.lock()->MoveUp(float(m_Speed));
+			break;
+		default: ;
+		}
+
+	}
 }
 
 void elfgine::ControlComponent::MoveDown()
 {
-	m_pRigidBody.lock()->MoveDown(float(m_Speed));
+	if (m_IsOnGrid)
+	{
+		m_MoveDirection = moveDirection::Down;
+		m_pRigidBody.lock()->MoveDown(float(m_Speed));
+		m_IsOnGrid = false;
+	}
+	else
+	{
+		switch (m_MoveDirection)
+		{
+		case moveDirection::Right:
+			m_pRigidBody.lock()->MoveRight(float(m_Speed));
+			break;
+		case moveDirection::Left:
+			m_pRigidBody.lock()->MoveLeft(float(m_Speed));
+			break;
+		case moveDirection::Down:
+			m_MoveDirection = moveDirection::Down;
+			m_pRigidBody.lock()->MoveDown(float(m_Speed));
+			break;
+		case moveDirection::Up:
+			m_MoveDirection = moveDirection::Down;
+			m_pRigidBody.lock()->MoveDown(float(m_Speed));
+			break;
+		default: ;
+		}
+
+	}
 }
 
 

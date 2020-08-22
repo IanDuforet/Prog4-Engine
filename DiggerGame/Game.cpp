@@ -1,22 +1,26 @@
+#include "MiniginPCH.h"
 #include "Game.h"
 #include "ELFgine.h"
 #include "GameIncludes.h"
-
+#include <glm/detail/type_vec2.hpp>
 
 //TO DO
-//NO NEED TO INCLUDE THIS IN GAME SEPERATE THIS
-
-using namespace elfgine;
+//NO NEED TO INCLUDE THIS IN GAME SEPARATE THIS
 
 void Game::Run()
 {
+	
 	//Init
 	elfgine::ELFgine engine;
 	engine.Initialize(m_WindowWidth, m_WindowHeight);
 
 	//Load Data
 	LoadTextures();
-
+	//Add Observers
+	auto& observers = elfgine::ObserverManager::GetInstance();
+	observers.AddObserver(std::make_shared<GameObserver>(), "Game");
+	observers.AddObserver(std::make_shared<ScoreObserver>() , "Score");
+	
 	//Load scenes
 	LoadScenes();
 
@@ -27,25 +31,25 @@ void Game::Run()
 void Game::LoadTextures()
 {
 	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
+	elfgine::ResourceManager::GetInstance().Init("../Data/");
 	
-	auto& manager = ResourceManager::GetInstance();
+	auto& manager = elfgine::ResourceManager::GetInstance();
 
 	//Character sprite
 	manager.AddTexture("Digger.png", "Digger");
 
-	//Logo
-	manager.AddTexture("logo.png", "Logo");
-
-	//Background
-	manager.AddTexture("background.jpg", "Background");
-
+	//Dugtile sprite
+	manager.AddTexture("DugTile.png", "DugTile");
+	
 	//Gem
 	manager.AddTexture("Gem.png", "Gem");
 
+	//Background
+	manager.AddTexture("Background1.png", "Background1");
+	
 
 	/////////FONTS
-	ResourceManager::GetInstance().AddFont("Lingua.otf", 36, "Lingua");
+	elfgine::ResourceManager::GetInstance().AddFont("Lingua.otf", 36, "Lingua");
 }
 
 void Game::LoadScenes()
@@ -57,54 +61,57 @@ void Game::LoadScenes()
 
 void Game::LoadScene1()
 {
+	//RENDERING ORDER MATTERS (NOT DEPTH INDEX IMPLEMENTED)
+
 	glm::vec2 middleOfWindow = { float(m_WindowWidth / 2), float(m_WindowHeight / 2) };
-	//Add Observers
-	std::shared_ptr<GameObserver> gameObserver = std::make_shared<GameObserver>();
+	
 
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto& scene = elfgine::SceneManager::GetInstance().CreateScene("Demo");
 
+	
 	//Make background
-	auto go = std::make_shared<GameObject>();
-	auto pBackRender = std::make_shared<RenderComponent>(go->GetTransform());
-	pBackRender->SetTexture("Background");
-	go->AddComponent(pBackRender);
-	scene.Add(go);
-	go->SetPosition(middleOfWindow);
+	std::shared_ptr<elfgine::SpriteObject> background = std::make_shared<elfgine::SpriteObject>("Background1", middleOfWindow);
+	background->AddGameObjectToComponents(background);
+	scene.Add(background);
 
-	//Make logo
-	go = std::make_shared<GameObject>();
-	auto pLogoRender = std::make_shared<RenderComponent>(go->GetTransform());
-	pLogoRender->SetTexture("Logo");
-	go->AddComponent(pLogoRender);
-	go->SetPosition(middleOfWindow);
-
-	scene.Add(go);
-
-	//Make testplayer
-	std::shared_ptr<Player> player = std::make_shared<Player>("Digger", true);
-	player->AddGameObjectToComponents(player);
-	player->SetPosition(100, 200);
-	scene.Add(player);
-	player->SetSpeed(100);
+	
+	//Make Grid
+	std::shared_ptr<elfgine::Grid> grid = std::make_shared<elfgine::Grid>(m_WindowWidth, m_WindowHeight, "DugTile");
+	scene.Add(grid);
+	
 
 	//Make pickup
-	std::shared_ptr<Pickup> gem = std::make_shared<Pickup>("Gem", glm::vec2{ 300,500 }, 10);
+	std::shared_ptr<elfgine::Pickup> gem = std::make_shared<elfgine::Pickup>("Gem", glm::vec2{ 300,500 }, 10);
+	gem->AddGameObjectToComponents(gem);
+	scene.Add(gem);
+	
+	//Make pickup
+	gem = std::make_shared<elfgine::Pickup>("Gem", glm::vec2{ 200,100 }, 10);
 	gem->AddGameObjectToComponents(gem);
 	scene.Add(gem);
 
-	gem = std::make_shared<Pickup>("Gem", glm::vec2{ 200,100 }, 10);
-	gem->AddGameObjectToComponents(gem);
-	scene.Add(gem);
-
-
+	//Make testplayer
+	std::shared_ptr<elfgine::Player> player = std::make_shared<elfgine::Player>("Digger", true);
+	player->AddGameObjectToComponents(player);
+	player->SetPosition(30	, 30);
+	scene.Add(player);
+	player->SetSpeed(100);
 	//Make score object
 	SDL_Color colorScore{ 255,255,0 };
 
-	auto to = std::make_shared<TextObject>("0000", "Lingua", colorScore);
-	to->SetPosition(float(m_WindowWidth) - 60, float(m_WindowHeight) - 20);
-	scene.Add(to);
+	auto scoreText = std::make_shared<elfgine::TextObject>("0000", "Lingua", colorScore);
+	scoreText->SetPosition(float(m_WindowWidth) - 60, float(m_WindowHeight) - 20);
+	scene.Add(scoreText);
 
-	GameManager::GetInstance().SetScoreText(to);
+	//Add Game Manager
+	std::shared_ptr<GameManager> pGameManager = std::make_shared<GameManager>();
+	pGameManager->SetScoreText(scoreText);
+	pGameManager->SetGrid(grid);
+	pGameManager->SetPlayer(player);
+	scene.Add(pGameManager);
+
+	std::shared_ptr<ScoreObserver> pScore = std::dynamic_pointer_cast<ScoreObserver>(elfgine::ObserverManager::GetInstance().GetObserver("Score"));
+	pScore->SetGameManager(pGameManager);
 }
 
 void Game::LoadScene2()

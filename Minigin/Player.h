@@ -7,11 +7,12 @@ namespace elfgine
 	class Player : public GameObject
 	{
 	public:
-		//TO DO: move texture creation back out of render component so you can reuse textures for multiple game objects
 		Player(const std::string& textureName, bool isActivePlayer);
 		virtual ~Player() = default;
 
 		void SetSpeed(int speed);
+		void SetCanMove();
+		bool GetIsOnGrid();
 		
 		std::shared_ptr<ControlComponent> m_pControlComponent;
 	private:

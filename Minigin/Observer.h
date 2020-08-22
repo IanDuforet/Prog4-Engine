@@ -8,7 +8,8 @@ namespace elfgine
 		enum class Event
 		{
 			DestroyObject,
-			AddScore
+			AddScore,
+			UpdateTile
 		};
 
 		Observer() = default;

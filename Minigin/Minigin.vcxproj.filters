@@ -17,24 +17,18 @@
     <Filter Include="Gameobjects">
       <UniqueIdentifier>{ebed23a3-bfc2-4caf-b46c-134d5c402af4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{506b9c73-5aa3-4f9b-a610-698c4ff494c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="BaseComponent.h">
@@ -97,16 +91,28 @@
     <ClInclude Include="CommandInputHandler.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObserver.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreObserver.h">
-      <Filter>Engine Files</Filter>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Gameobjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="SceneManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserverManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObject.h">
+      <Filter>Gameobjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -120,22 +126,13 @@
     <ClCompile Include="Transform.cpp">
       <Filter>HelperClasses</Filter>
     </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -180,13 +177,25 @@
     <ClCompile Include="CommandInputHandler.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObserver.cpp">
-      <Filter>Engine Files</Filter>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Gameobjects</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreObserver.cpp">
-      <Filter>Engine Files</Filter>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObject.cpp">
+      <Filter>Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

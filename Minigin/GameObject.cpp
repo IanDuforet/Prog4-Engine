@@ -5,7 +5,7 @@
 #include "TransformComponent.h"
 #include "RenderComponent.h"
 #include "Transform.h"
-
+#include <algorithm>
 void elfgine::GameObject::Update(float deltaTime)
 {
 	std::shared_ptr<Transform> p_transform = m_pTransformComponent->GetTransform();
@@ -60,4 +60,11 @@ void elfgine::GameObject::AddGameObjectToComponents(std::shared_ptr<GameObject> 
 	{
 		c->AddGameObject(pGameObject);
 	}
+}
+
+void elfgine::GameObject::RemoveComponent(std::shared_ptr<BaseComponent> pComponent)
+{
+
+		auto it = std::remove(m_pComponents.begin(), m_pComponents.end(), pComponent);
+		m_pComponents.erase(it, m_pComponents.end());
 }

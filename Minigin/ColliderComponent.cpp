@@ -4,22 +4,26 @@
 #include "Transform.h"
 #include <algorithm>
 #include "GameObserver.h"
-#include "ScoreObserver.h"
-std::vector<std::shared_ptr<elfgine::ColliderComponent>> elfgine::ColliderComponent::m_AllColliders{};
+#include "ObserverManager.h"
+std::vector<std::weak_ptr<elfgine::ColliderComponent>> elfgine::ColliderComponent::m_AllColliders{};
 
-elfgine::ColliderComponent::ColliderComponent(int width, int height, bool checkCollision)
+elfgine::ColliderComponent::ColliderComponent(int width, int height, bool checkCollision, Tag tag)
 	: BaseComponent()
 	, m_Rect(Rect2D{ 0,0,width, height})
 	, m_CheckCollision(checkCollision)
+	, m_Tag{tag}
+	, m_SpriteWidth(width)
+	, m_SpriteHeight(height)
 {
-	AddObserver(std::make_shared<GameObserver>());
-	AddObserver(std::make_shared<ScoreObserver>());
+	auto& pManager = ObserverManager::GetInstance();
+	AddObserver(pManager.GetObserver("Game"));
+	AddObserver(pManager.GetObserver("Score"));
 }
 
 elfgine::ColliderComponent::~ColliderComponent()
 {
-	auto it = std::remove(m_AllColliders.begin(), m_AllColliders.end(), m_ThisCollider.lock());
-	m_AllColliders.erase(it, m_AllColliders.end());
+	/*auto it = std::remove(m_AllColliders.begin(), m_AllColliders.end(), m_ThisCollider.lock());
+	m_AllColliders.erase(it, m_AllColliders.end());*/
 }
 
 void elfgine::ColliderComponent::Update(float)
@@ -27,43 +31,61 @@ void elfgine::ColliderComponent::Update(float)
 	std::shared_ptr<Transform> t = m_pGameObject.lock()->GetTransform();
 	m_Rect.x = int(t->GetPosition().x);
 	m_Rect.y = int(t->GetPosition().y);
-
-	if(m_CheckCollision)
+	
+	if (!m_CheckCollision)
+		return;
+	if (!CheckCollision())
+		return;
+	if (!m_FoundObject.lock())
+		return;
+	if (m_FoundObject.lock()->CheckDelete())
+		return;
+	for(int i{0}; i < int(m_pObservers.size()); i++)
 	{
-		if(CheckCollision())
+		std::weak_ptr<Observer> pObserver = m_pObservers[i];
+
+		std::weak_ptr<ColliderComponent> otherCollider = m_FoundObject.lock()->GetComponent<ColliderComponent>();
+
+		if (!otherCollider.lock())
+			return;
+		
+			Tag otherTag = otherCollider.lock()->m_Tag;
+		switch (otherTag)
 		{
-			if(m_FoundObject.lock())
-			{
-				if (!m_FoundObject.lock()->CheckDelete())
-				{
-					for(int i{0}; i < int(m_pObservers.size()); i++)
-					{
-						std::weak_ptr<Observer> pObserver = m_pObservers[i];
-						pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::DestroyObject);
-						pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::AddScore);
-					}
-				}
-			}
+		case Tag::Pickup:
+			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::DestroyObject);
+			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::AddScore);
+			break;
+		case Tag::Tile:
+			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::UpdateTile);
+			
+			break;
+		default:
+			break;
 		}
+		
 	}
 }
 
 bool elfgine::ColliderComponent::CheckCollision()
 {
-	for(std::shared_ptr<ColliderComponent> c : m_AllColliders)
+	for(std::weak_ptr<ColliderComponent> c : m_AllColliders)
 	{
-		//Make sure it does not check collision with itself
-		if (c != m_ThisCollider.lock())
+		if(c.lock())
 		{
-			//Check collision with others
-			Rect2D otherRect = c->m_Rect;
-			if(m_Rect.x < otherRect.x + otherRect.width &&
-				m_Rect.x + m_Rect.width > otherRect.x &&
-				m_Rect.y < otherRect.y + otherRect.height &&
-				m_Rect.y + m_Rect.height > otherRect.y)
+			//Make sure it does not check collision with itself
+			if (c.lock() != m_ThisCollider.lock())
 			{
-				m_FoundObject = c->m_pGameObject;
-				return true;
+				//Check collision with others
+				Rect2D otherRect = c.lock()->m_Rect;
+				if(m_Rect.x < otherRect.x + otherRect.width &&
+					m_Rect.x + m_Rect.width > otherRect.x &&
+					m_Rect.y < otherRect.y + otherRect.height &&
+					m_Rect.y + m_Rect.height > otherRect.y)
+				{
+					m_FoundObject = c.lock()->m_pGameObject;
+					return true;
+				}
 			}
 		}
 	}

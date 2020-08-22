@@ -4,6 +4,13 @@
 #include "Transform.h"
 
 
+elfgine::RigidBodyComponent::RigidBodyComponent(std::shared_ptr<Transform> pTransform)
+	: m_Velocity{}
+{
+	m_Transform = pTransform;
+}
+
+
 void elfgine::RigidBodyComponent::MoveLeft(float value)
 {
 	m_Velocity.x = -value;
@@ -26,10 +33,14 @@ void elfgine::RigidBodyComponent::MoveDown(float value)
 
 void elfgine::RigidBodyComponent::Update(float deltaTime)
 {
-	std::shared_ptr<Transform> transform = m_pGameObject.lock()->GetTransform();
-	glm::vec2 pos = transform->GetPosition();
-	glm::vec2 newPos = pos + (m_Velocity * deltaTime);
-	transform->SetPosition(newPos);
+	
+	glm::vec2 pos = m_Transform.lock()->GetPosition();
+	glm::vec2 newPos{pos};
+
+	newPos.x = pos.x + (m_Velocity.x * deltaTime);
+	newPos.y = pos.y + (m_Velocity.y * deltaTime);
+	m_Transform.lock()->SetPosition(newPos);
+
 	m_Velocity = { 0,0 };
 }
 

@@ -1,12 +1,12 @@
 #pragma once
 #include "Observer.h"
-namespace elfgine
-{
+	class GameManager;
 	class ScoreObserver :
-		public Observer
+		public elfgine::Observer
 	{
 	public:
-		void onNotify(std::shared_ptr<GameObject> pGameObject, Event event);
+		void SetGameManager(std::shared_ptr<GameManager> pGameManager);
+		void onNotify(std::shared_ptr<elfgine::GameObject> pGameObject, Event event);
+		std::weak_ptr<GameManager> m_pGameManager;
 	};
-}
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 #include "vector"
+#include "Components.h"
 
 namespace elfgine
 {
@@ -23,14 +24,15 @@ namespace elfgine
 		void AddComponent(std::shared_ptr<BaseComponent> pComponent);
 		void AddComponent(std::shared_ptr<BaseComponent> pComponent, std::weak_ptr<GameObject> pGameObject);
 		void AddGameObjectToComponents(std::shared_ptr<GameObject> pGameObject);
+		void RemoveComponent(std::shared_ptr<BaseComponent> pComponent);
 		std::shared_ptr<Texture2D> GetTexture();
 		
 		template <typename T>
 		std::shared_ptr<T> GetComponent()
 		{
-			for (std::shared_ptr<T> c : m_pComponents)
+			for (std::shared_ptr<BaseComponent> c : m_pComponents)
 			{
-				std::shared_ptr<T> pComponent{ dynamic_cast<std::shared_ptr<T>>(c) };
+				std::shared_ptr<T> pComponent{ std::dynamic_pointer_cast<T>(c) };
 				if (pComponent != nullptr)
 					return pComponent;
 			}

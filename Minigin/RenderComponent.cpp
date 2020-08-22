@@ -35,7 +35,8 @@ std::shared_ptr<elfgine::Texture2D> elfgine::RenderComponent::GetTexture()
 
 void elfgine::RenderComponent::Update(float)
 {
-	elfgine::Renderer::GetInstance().RenderTexture(*m_pTexture, m_pTransform.lock()->GetPosition().x, m_pTransform.lock()->GetPosition().y);
+	if(m_Enabled)
+		elfgine::Renderer::GetInstance().RenderTexture(*m_pTexture, m_pTransform.lock()->GetPosition().x, m_pTransform.lock()->GetPosition().y);
 }
 
 void elfgine::RenderComponent::SetTexture(const std::string& keyName)

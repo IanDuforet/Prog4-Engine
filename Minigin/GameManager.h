@@ -1,21 +1,28 @@
 #pragma once
-#include "Singleton.h"
+#include "GameObject.h"
+#include "TextObject.h"
+#include "Grid.h"
+#include "Player.h"
 
-namespace elfgine
+class GameManager : public elfgine::GameObject
 {
-	class TextObject;
-	class GameManager :
-		public Singleton<GameManager>
-	{
-	public:
-		void SetScoreText(std::shared_ptr<TextObject> pTextObject);
-		void AddScore(int value);
-	private:
+public:
+	void SetScoreText(std::shared_ptr<elfgine::TextObject> pTextObject);
+	void SetGrid(std::shared_ptr<elfgine::Grid> pGrid);
+	void SetPlayer(std::shared_ptr<elfgine::Player> pPlayer);
+	void AddScore(int value);
+	void Update(float deltaTime) override;
+private:
 
-		void UpdateScore();
-		
-		int m_Score{0};
-		std::weak_ptr<TextObject> m_pScoreText;
-	};
-}
+	//Helper functions
+	void CheckGridMovement();
+	void UpdateScore();
+	
+	int m_Score{0};
+	std::weak_ptr<elfgine::TextObject> m_pScoreText;
+	std::weak_ptr<elfgine::Grid> m_pGrid;
+	std::weak_ptr<elfgine::Player> m_Player;
+
+};
+
 

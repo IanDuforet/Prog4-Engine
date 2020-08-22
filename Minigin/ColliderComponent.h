@@ -5,11 +5,20 @@
 
 namespace elfgine
 {
+	enum class Tag
+	{
+		Pickup,
+		Tile,
+		Enemy,
+		Player,
+		Projectile
+	};
+	
 	class Observer;
 	class ColliderComponent : public BaseComponent
 	{
 	public:
-		ColliderComponent(int width, int height, bool checkCollision);
+		ColliderComponent(int width, int height, bool checkCollision, Tag tag);
 		~ColliderComponent();
 		void Update(float deltaTime) override;
 		bool CheckCollision();
@@ -18,12 +27,15 @@ namespace elfgine
 		
 	protected:
 		Rect2D m_Rect;
-	private:
-		static std::vector<std::shared_ptr<ColliderComponent>> m_AllColliders;
 		std::weak_ptr<ColliderComponent> m_ThisCollider;
-		std::weak_ptr<GameObject> m_FoundObject;
 		bool m_CheckCollision{false};
-		std::vector<std::shared_ptr<Observer>> m_pObservers;
+	private:
+		static std::vector<std::weak_ptr<ColliderComponent>> m_AllColliders;
+		std::weak_ptr<GameObject> m_FoundObject;
+		std::vector<std::weak_ptr<Observer>> m_pObservers;
+		int m_SpriteWidth;
+		int m_SpriteHeight;
+		Tag m_Tag;
 		
 	};
 }
