@@ -8,14 +8,20 @@ void GameObserver::onNotify(std::shared_ptr<elfgine::GameObject> pGameObject, Ev
 {
 	switch (event)
 	{
-	case Event::DestroyObject:
+	case Event::PlayerWithPickup:
 		DestroyObject(pGameObject);
 		break;
-	case Event::UpdateTile:
+	case Event::PlayerWithTile:
+		{
 		std::shared_ptr<elfgine::TileObject> pTile = std::dynamic_pointer_cast <elfgine::TileObject>(pGameObject);
 		std::shared_ptr<elfgine::ColliderComponent> collision = pGameObject->GetComponent<elfgine::ColliderComponent>();
 		pTile->SetTileState(true);
 		pTile->RemoveComponent(collision);
+		break;
+			
+		}
+	case Event::ProjectileWithTile:
+		DestroyObject(pGameObject);
 		break;
 	//Can add more events
 	}

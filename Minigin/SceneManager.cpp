@@ -27,6 +27,16 @@ void elfgine::SceneManager::CheckToDelete()
 	}
 }
 
+void elfgine::SceneManager::NextScene()
+{
+	m_SceneIndex++;
+}
+
+std::shared_ptr<elfgine::Scene> elfgine::SceneManager::GetActiveScene()
+{
+	return m_Scenes[m_SceneIndex];
+}
+
 elfgine::Scene& elfgine::SceneManager::CreateScene(const std::string& name)
 {
 	const auto scene = std::shared_ptr<Scene>(new Scene(name));

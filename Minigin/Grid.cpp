@@ -24,12 +24,6 @@ elfgine::Grid::Grid(int WindowWidth, int WindowHeight, const std::string& textur
 		m_pTiles.push_back(tile);
 	}
 
-	std::vector<int> dugIndexes{1,22,85,86, 87,105};
-
-	for (int i : dugIndexes)
-	{
-		m_pTiles[i]->SetTileState(true);
-	}
 	
 }
 
@@ -66,4 +60,14 @@ int elfgine::Grid::GetDistance(glm::vec2 pos1, glm::vec2 pos2)
 	float a = pow(pos2.x, 2) - pow(pos1.x, 2);
 	float b = pow(pos2.y, 2) - pow(pos1.y, 2);
 	return int(sqrt(a + b));
+}
+
+void elfgine::Grid::SetDugTiles(const std::vector<int>& tiles)
+{
+	for (int i : tiles)
+	{
+		m_pTiles[i]->SetTileState(true);
+		m_pTiles[i]->RemoveComponent(m_pTiles[i]->GetComponent<ColliderComponent>());
+	}
+
 }

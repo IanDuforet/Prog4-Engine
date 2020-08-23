@@ -32,5 +32,11 @@ namespace elfgine
 	public:
 		virtual void execute(std::weak_ptr<ControlComponent> pToControl) { pToControl.lock()->MoveDown(); };
 	};
+
+	class Shoot : public Command
+	{
+	public:
+		virtual void execute(std::weak_ptr<ControlComponent> pToControl) { pToControl.lock()->Shoot(); };
+	};
 }
 

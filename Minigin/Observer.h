@@ -7,9 +7,9 @@ namespace elfgine
 	public:
 		enum class Event
 		{
-			DestroyObject,
-			AddScore,
-			UpdateTile
+			PlayerWithPickup,
+			PlayerWithTile,
+			ProjectileWithTile
 		};
 
 		Observer() = default;

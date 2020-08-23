@@ -212,6 +212,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="ObserverManager.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RigidBodyComponent.h" />
@@ -249,6 +250,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClCompile Include="ObserverManager.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

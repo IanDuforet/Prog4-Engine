@@ -91,9 +91,6 @@
     <ClInclude Include="CommandInputHandler.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteObject.h">
       <Filter>Gameobjects</Filter>
     </ClInclude>
@@ -114,6 +111,12 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>HelperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Gameobjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Gameobjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

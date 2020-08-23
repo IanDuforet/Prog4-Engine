@@ -14,6 +14,7 @@ namespace elfgine
 		int GetTileSize();
 		std::shared_ptr<TileObject> GetNearestTile(std::shared_ptr<GameObject> pObject);
 		int GetDistance(glm::vec2 pos1, glm::vec2 pos2);
+		void SetDugTiles(const std::vector<int>& tiles);
 	private:
 		std::vector<std::shared_ptr<TileObject>> m_pTiles;
 		int m_GridWidth, m_GridHeight;

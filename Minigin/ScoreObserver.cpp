@@ -13,7 +13,7 @@ void ScoreObserver::onNotify(std::shared_ptr<elfgine::GameObject> pGameObject, E
 {
 	switch (event)
 	{
-	case Event::AddScore:
+	case Event::PlayerWithPickup:
 		int value{ 0 };
 		std::shared_ptr<elfgine::Pickup> pPickup = std::dynamic_pointer_cast <elfgine::Pickup>(pGameObject);
 		value = pPickup->GetValue();

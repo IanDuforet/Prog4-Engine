@@ -32,6 +32,7 @@ namespace elfgine
 		std::shared_ptr<MoveUp> m_pMoveUp{ std::make_shared<MoveUp>() };
 		std::shared_ptr<MoveRight> m_pMoveRight{ std::make_shared<MoveRight>() };
 		std::shared_ptr<MoveDown> m_pMoveDown{ std::make_shared<MoveDown>() };
+		std::shared_ptr<Shoot> m_Shoot{ std::make_shared<Shoot>() };
 		bool m_Quit{false};
 	};
 

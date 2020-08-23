@@ -10,9 +10,14 @@ std::shared_ptr<elfgine::Command> elfgine::InputManager::ProcessInput()
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) 
+		switch (e.type)
 		{
+		case SDL_QUIT:
 			m_Quit = true;
+			break;
+		case SDL_KEYDOWN:
+			if(e.key.keysym.sym == SDLK_SPACE)
+				return m_Shoot;
 		}
 	}
 

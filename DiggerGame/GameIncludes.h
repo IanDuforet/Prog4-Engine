@@ -10,6 +10,7 @@
 #include "ScoreObserver.h"
 #include "GameObserver.h"
 #include "Grid.h"
+#include "Projectile.h"
 
 //Managers
 #include "ResourceManager.h"

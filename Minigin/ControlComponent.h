@@ -27,6 +27,7 @@ namespace elfgine
 		void MoveRight();
 		void MoveUp();
 		void MoveDown();
+		void Shoot();
 	private:
 		int m_Speed;
 		std::weak_ptr<RigidBodyComponent> m_pRigidBody;

@@ -31,6 +31,7 @@ void elfgine::ColliderComponent::Update(float)
 	std::shared_ptr<Transform> t = m_pGameObject.lock()->GetTransform();
 	m_Rect.x = int(t->GetPosition().x);
 	m_Rect.y = int(t->GetPosition().y);
+
 	
 	if (!m_CheckCollision)
 		return;
@@ -53,12 +54,13 @@ void elfgine::ColliderComponent::Update(float)
 		switch (otherTag)
 		{
 		case Tag::Pickup:
-			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::DestroyObject);
-			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::AddScore);
+			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::PlayerWithPickup);
 			break;
 		case Tag::Tile:
-			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::UpdateTile);
-			
+			if(m_Tag == Tag::Projectile)
+				pObserver.lock()->onNotify(m_pGameObject.lock(), Observer::Event::ProjectileWithTile);
+			if(m_Tag == Tag::Player)
+				pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::PlayerWithTile);
 			break;
 		default:
 			break;

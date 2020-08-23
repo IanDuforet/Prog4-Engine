@@ -13,9 +13,12 @@ namespace elfgine
 		void FixedUpdate();
 		void Render();
 		void CheckToDelete();
+		void NextScene();
+		std::shared_ptr<Scene> GetActiveScene();
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
 		std::vector<std::shared_ptr<Scene>> m_Scenes;
+		bool m_SceneIndex{0};
 	};
 }

@@ -2,6 +2,10 @@
 #include "ControlComponent.h"
 #include "GameObject.h"
 #include "RigidBodyComponent.h"
+#include "SceneManager.h"
+#include "Projectile.h"
+#include "Scene.h"
+#include "SceneManager.h"
 
 elfgine::ControlComponent::ControlComponent(std::shared_ptr<RigidBodyComponent> pRigidBody)
 	: BaseComponent()
@@ -152,6 +156,14 @@ void elfgine::ControlComponent::MoveDown()
 		}
 
 	}
+}
+
+void elfgine::ControlComponent::Shoot()
+{
+	std::shared_ptr<Projectile> projectile = std::make_shared<Projectile>("Projectile", m_MoveDirection, 100);
+	projectile->SetPosition(m_pGameObject.lock()->GetTransform()->GetPosition());
+	projectile->AddGameObjectToComponents(projectile);
+	SceneManager::GetInstance().GetActiveScene()->Add(projectile);
 }
 
 
