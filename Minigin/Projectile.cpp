@@ -4,8 +4,8 @@
 
 elfgine::Projectile::Projectile(const std::string& textureName, ControlComponent::moveDirection playerDirection, int speed)
 	: GameObject()
-	, m_ProjectileDir(playerDirection)
 	, m_ProjectileSpeed(speed)
+	, m_ProjectileDir(playerDirection)
 {
 	//Render
 	std::shared_ptr<RenderComponent> renderComponent = std::make_shared<RenderComponent>(GetTransform());
@@ -20,8 +20,7 @@ elfgine::Projectile::Projectile(const std::string& textureName, ControlComponent
 	
 	//Collider
 	std::shared_ptr<ColliderComponent> colliderComponent = std::make_shared<ColliderComponent>(renderComponent->GetTextureWidth(),
-		renderComponent->GetTextureHeight(), true, Tag::Projectile);
-	colliderComponent->AddColliderToCollection(colliderComponent);
+		renderComponent->GetTextureHeight(), true, ColliderComponent::Tag::Projectile);
 	AddComponent(colliderComponent);
 }
 
@@ -42,6 +41,7 @@ void elfgine::Projectile::Update(float deltaTime)
 	case ControlComponent::moveDirection::Down:
 		m_ThisRigidBody.lock()->MoveDown((float)m_ProjectileSpeed);
 		break;
+	
 	}
 
 	GameObject::Update(deltaTime);

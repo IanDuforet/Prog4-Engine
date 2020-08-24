@@ -1,13 +1,12 @@
 #include "MiniginPCH.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "CommandInputHandler.h"
+#include "Player.h"
 
 void elfgine::SceneManager::Update(float deltaTime)
 {
-	for(auto& scene : m_Scenes)
-	{
-		scene->Update(deltaTime);
-	}
+	m_Scenes[m_SceneIndex]->Update(deltaTime);
 }
 
 
@@ -30,6 +29,8 @@ void elfgine::SceneManager::CheckToDelete()
 void elfgine::SceneManager::NextScene()
 {
 	m_SceneIndex++;
+	auto& handler = CommandInputHandler::GetInstance();
+	handler.AssignActor(GetActiveScene()->GetPlayer()->GetComponent<ControlComponent>());
 }
 
 std::shared_ptr<elfgine::Scene> elfgine::SceneManager::GetActiveScene()

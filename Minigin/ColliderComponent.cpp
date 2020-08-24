@@ -5,26 +5,22 @@
 #include <algorithm>
 #include "GameObserver.h"
 #include "ObserverManager.h"
-std::vector<std::weak_ptr<elfgine::ColliderComponent>> elfgine::ColliderComponent::m_AllColliders{};
+#include "SceneManager.h"
+#include "Scene.h"
 
 elfgine::ColliderComponent::ColliderComponent(int width, int height, bool checkCollision, Tag tag)
 	: BaseComponent()
 	, m_Rect(Rect2D{ 0,0,width, height})
-	, m_CheckCollision(checkCollision)
-	, m_Tag{tag}
 	, m_SpriteWidth(width)
 	, m_SpriteHeight(height)
+	, m_Tag{tag}
+	, m_CheckCollision(checkCollision)
 {
 	auto& pManager = ObserverManager::GetInstance();
 	AddObserver(pManager.GetObserver("Game"));
 	AddObserver(pManager.GetObserver("Score"));
 }
 
-elfgine::ColliderComponent::~ColliderComponent()
-{
-	/*auto it = std::remove(m_AllColliders.begin(), m_AllColliders.end(), m_ThisCollider.lock());
-	m_AllColliders.erase(it, m_AllColliders.end());*/
-}
 
 void elfgine::ColliderComponent::Update(float)
 {
@@ -32,7 +28,6 @@ void elfgine::ColliderComponent::Update(float)
 	m_Rect.x = int(t->GetPosition().x);
 	m_Rect.y = int(t->GetPosition().y);
 
-	
 	if (!m_CheckCollision)
 		return;
 	if (!CheckCollision())
@@ -54,14 +49,18 @@ void elfgine::ColliderComponent::Update(float)
 		switch (otherTag)
 		{
 		case Tag::Pickup:
-			pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::PlayerWithPickup);
+			if(m_Tag == Tag::Player)
+				pObserver.lock()->onNotify(m_pGameObject.lock(),m_FoundObject.lock(), Observer::Event::PlayerWithPickup);
 			break;
 		case Tag::Tile:
 			if(m_Tag == Tag::Projectile)
-				pObserver.lock()->onNotify(m_pGameObject.lock(), Observer::Event::ProjectileWithTile);
+				pObserver.lock()->onNotify(m_pGameObject.lock(), m_FoundObject.lock(), Observer::Event::ProjectileWithTile);
 			if(m_Tag == Tag::Player)
-				pObserver.lock()->onNotify(m_FoundObject.lock(), Observer::Event::PlayerWithTile);
+				pObserver.lock()->onNotify(m_pGameObject.lock(), m_FoundObject.lock(), Observer::Event::PlayerWithTile);
 			break;
+		case Tag::Enemy:
+			if(m_Tag == Tag::Projectile)
+				pObserver.lock()->onNotify(m_pGameObject.lock(), m_FoundObject.lock(), Observer::Event::ProjectileWithEnemy);
 		default:
 			break;
 		}
@@ -71,12 +70,13 @@ void elfgine::ColliderComponent::Update(float)
 
 bool elfgine::ColliderComponent::CheckCollision()
 {
-	for(std::weak_ptr<ColliderComponent> c : m_AllColliders)
+	std::vector<std::weak_ptr<ColliderComponent>> allColliders = SceneManager::GetInstance().GetActiveScene()->GetColliders();
+	for(std::weak_ptr<ColliderComponent> c : allColliders)
 	{
 		if(c.lock())
 		{
 			//Make sure it does not check collision with itself
-			if (c.lock() != m_ThisCollider.lock())
+			if (c.lock()->m_Tag != m_Tag)
 			{
 				//Check collision with others
 				Rect2D otherRect = c.lock()->m_Rect;
@@ -86,6 +86,7 @@ bool elfgine::ColliderComponent::CheckCollision()
 					m_Rect.y + m_Rect.height > otherRect.y)
 				{
 					m_FoundObject = c.lock()->m_pGameObject;
+					
 					return true;
 				}
 			}
@@ -94,11 +95,6 @@ bool elfgine::ColliderComponent::CheckCollision()
 	return false;
 }
 
-void elfgine::ColliderComponent::AddColliderToCollection(std::shared_ptr<ColliderComponent> pThisCollider)
-{
-	m_AllColliders.push_back(pThisCollider);
-	m_ThisCollider = pThisCollider;
-}
 
 void elfgine::ColliderComponent::AddObserver(std::shared_ptr<Observer> pObserver)
 {

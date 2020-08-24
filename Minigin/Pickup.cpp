@@ -11,10 +11,7 @@ elfgine::Pickup::Pickup(const std::string& textureName, int value)
 	AddComponent(renderComponent);
 
 	std::shared_ptr<ColliderComponent> colliderComponent = std::make_shared<ColliderComponent>(renderComponent->GetTextureWidth(),
-		renderComponent->GetTextureHeight(), false, Tag::Pickup);
-
-	colliderComponent->AddColliderToCollection(colliderComponent);
-	
+		renderComponent->GetTextureHeight(), false, ColliderComponent::Tag::Pickup);
 	AddComponent(colliderComponent);
 }
 
@@ -30,14 +27,11 @@ elfgine::Pickup::Pickup(const std::string& textureName, glm::vec2 position, int 
 	m_pTransformComponent->SetPosition(position.x, position.y);
 
 	std::shared_ptr<ColliderComponent> colliderComponent = std::make_shared<ColliderComponent>(renderComponent->GetTextureWidth(),
-		renderComponent->GetTextureHeight(), false, Tag::Pickup);
-
-	colliderComponent->AddColliderToCollection(colliderComponent);
-
+		renderComponent->GetTextureHeight(), false, ColliderComponent::Tag::Pickup);
 	AddComponent(colliderComponent);
 }
 
-int elfgine::Pickup::GetValue()
+int elfgine::Pickup::GetValue() const
 {
 	return m_Value;
 }

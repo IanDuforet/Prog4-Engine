@@ -118,6 +118,9 @@
     <ClInclude Include="Projectile.h">
       <Filter>Gameobjects</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Gameobjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp">
@@ -128,9 +131,6 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>HelperClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine Files</Filter>
@@ -168,9 +168,6 @@
     <ClCompile Include="RigidBodyComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>HelperClasses</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Gameobjects</Filter>
     </ClCompile>
@@ -202,6 +199,9 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
+      <Filter>Gameobjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>Gameobjects</Filter>
     </ClCompile>
   </ItemGroup>

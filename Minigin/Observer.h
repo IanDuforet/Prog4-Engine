@@ -9,12 +9,19 @@ namespace elfgine
 		{
 			PlayerWithPickup,
 			PlayerWithTile,
-			ProjectileWithTile
+			ProjectileWithTile,
+			ProjectileWithEnemy
 		};
 
 		Observer() = default;
-		virtual ~Observer() {};
-		virtual void onNotify(std::shared_ptr<GameObject> pGameObject, Event event) = 0;
+		virtual ~Observer() = default;
+		Observer(const Observer& other) = delete;
+		Observer(Observer&& other) = delete;
+		Observer& operator=(const Observer& other) = delete;
+		Observer& operator=(Observer&& other) = delete;
+
+		//Function
+		virtual void onNotify(std::shared_ptr<GameObject> pGameObject, std::shared_ptr<GameObject> pFoundObject, Event event) = 0;
 	};
 	
 }

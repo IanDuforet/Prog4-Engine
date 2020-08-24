@@ -11,6 +11,7 @@
 #include "GameObserver.h"
 #include "Grid.h"
 #include "Projectile.h"
+#include "Enemy.h"
 
 //Managers
 #include "ResourceManager.h"

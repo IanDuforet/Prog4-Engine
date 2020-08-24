@@ -17,10 +17,12 @@ std::shared_ptr<elfgine::Command> elfgine::InputManager::ProcessInput()
 			break;
 		case SDL_KEYDOWN:
 			if(e.key.keysym.sym == SDLK_SPACE)
-				return m_Shoot;
+				return m_pShoot;
 		}
 	}
 
+	
+	
 	return nullptr;
 }
 
@@ -54,6 +56,10 @@ std::shared_ptr<elfgine::Command> elfgine::InputManager::ProcessContinuous()
 	if (IsPressed(ControllerButton::DPADDown))
 	{
 		return m_pMoveDown;
+	}
+	if (IsPressed(ControllerButton::ButtonA))
+	{
+		return m_pShoot;
 	}
 	return nullptr;
 }

@@ -18,7 +18,7 @@ namespace elfgine
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::shared_ptr<Scene>> m_Scenes;
-		bool m_SceneIndex{0};
+		std::vector<std::shared_ptr<Scene>> m_Scenes{};
+		int m_SceneIndex{0};
 	};
 }

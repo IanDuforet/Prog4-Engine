@@ -25,7 +25,6 @@ void elfgine::TransformComponent::SetPosition(glm::vec2 pos)
 
 void elfgine::TransformComponent::Update(float)
 {
-	
 }
 
 

@@ -41,8 +41,6 @@ std::shared_ptr<elfgine::Texture2D> elfgine::ResourceManager::LoadTexture(const 
 
 void elfgine::ResourceManager::AddFont(const std::string& file, unsigned int size, const std::string& fontName)
 {
-	//m_Fonts.push_back(std::make_shared<Font>(m_DataPath + file, size));
-
 	TTF_Font* pFont = TTF_OpenFont((m_DataPath + file).c_str(), size);
 	if (pFont == nullptr)
 	{
@@ -61,12 +59,12 @@ void elfgine::ResourceManager::AddTexture(const std::string& file, const std::st
 	m_pTextures.insert(Pair);
 }
 
-TTF_Font* elfgine::ResourceManager::GetFont(const std::string& fontName)
+TTF_Font* elfgine::ResourceManager::GetFont(const std::string& fontName) const
 {
 	return m_pFonts.at(fontName);
 }
 
-std::shared_ptr<elfgine::Texture2D> elfgine::ResourceManager::GetTexture(const std::string& textureName)
+std::shared_ptr<elfgine::Texture2D> elfgine::ResourceManager::GetTexture(const std::string& textureName) const
 {
 	return m_pTextures.at(textureName);
 }

@@ -5,37 +5,45 @@
 
 namespace elfgine
 {
-	enum class Tag
-	{
-		Pickup,
-		Tile,
-		Enemy,
-		Player,
-		Projectile
-	};
 	
 	class Observer;
-	class ColliderComponent : public BaseComponent
+	class ColliderComponent final : public BaseComponent
 	{
 	public:
+		enum class Tag
+		{
+			Pickup,
+			Tile,
+			Enemy,
+			Player,
+			Projectile
+		};
+		
 		ColliderComponent(int width, int height, bool checkCollision, Tag tag);
-		~ColliderComponent();
+		virtual ~ColliderComponent() = default;
+		ColliderComponent(const ColliderComponent& other) = delete;
+		ColliderComponent(ColliderComponent&& other) = delete;
+		ColliderComponent& operator=(const ColliderComponent& other) = delete;
+		ColliderComponent& operator=(ColliderComponent&& other) = delete;
+		
+		//Functions
 		void Update(float deltaTime) override;
-		bool CheckCollision();
-		void AddColliderToCollection(std::shared_ptr<ColliderComponent> pThisCollider);
 		void AddObserver(std::shared_ptr<Observer> pObserver);
 		
 	protected:
+		//Variables
 		Rect2D m_Rect;
-		std::weak_ptr<ColliderComponent> m_ThisCollider;
 		bool m_CheckCollision{false};
 	private:
-		static std::vector<std::weak_ptr<ColliderComponent>> m_AllColliders;
-		std::weak_ptr<GameObject> m_FoundObject;
-		std::vector<std::weak_ptr<Observer>> m_pObservers;
+		//Helper functions
+		bool CheckCollision();
+
+		//Variables
 		int m_SpriteWidth;
 		int m_SpriteHeight;
 		Tag m_Tag;
+		std::weak_ptr<GameObject> m_FoundObject{};
+		std::vector<std::weak_ptr<Observer>> m_pObservers;
 		
 	};
 }

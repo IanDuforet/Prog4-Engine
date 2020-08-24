@@ -1,0 +1,43 @@
+﻿  MiniginPCH.cpp
+  BaseComponent.cpp
+  ColliderComponent.cpp
+  CommandInputHandler.cpp
+  ControlComponent.cpp
+  Enemy.cpp
+  FPSCounter.cpp
+  GameObject.cpp
+  Grid.cpp
+  InputManager.cpp
+  ELFgine.cpp
+  ObserverManager.cpp
+  Pickup.cpp
+  Player.cpp
+  Projectile.cpp
+  RenderComponent.cpp
+  Renderer.cpp
+  ResourceManager.cpp
+  RigidBodyComponent.cpp
+  Scene.cpp
+  SceneManager.cpp
+  Generating Code...
+  Compiling...
+  SpriteObject.cpp
+  TextObject.cpp
+  Texture2D.cpp
+  TileObject.cpp
+  Transform.cpp
+  TransformComponent.cpp
+  Generating Code...
+  Minigin.vcxproj -> E:\DAE\Year3\S4\Prog 4\Minigin\Win32\Debug\ELFgine.lib
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2\lib\x86\SDL2.dll
+  1 File(s) copied
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\libjpeg-9.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\libpng16-16.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\libtiff-5.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\libwebp-7.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\SDL2_image.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_image\lib\x86\zlib1.dll
+  6 File(s) copied
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_ttf\lib\x86\libfreetype-6.dll
+  E:\DAE\Year3\S4\Prog 4\Minigin\3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.dll
+  2 File(s) copied

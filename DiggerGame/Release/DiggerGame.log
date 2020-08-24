@@ -1,0 +1,10 @@
+﻿  GameManager.cpp
+  GameObserver.cpp
+  ScoreObserver.cpp
+  Game.cpp
+  Main.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 2149 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  DiggerGame.vcxproj -> E:\DAE\Year3\S4\Prog 4\Minigin\Release\DiggerGame.exe

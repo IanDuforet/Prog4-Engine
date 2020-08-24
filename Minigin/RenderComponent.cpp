@@ -28,7 +28,7 @@ int elfgine::RenderComponent::GetTextureHeight() const
 	return m_pTexture->GetHeight();
 }
 
-std::shared_ptr<elfgine::Texture2D> elfgine::RenderComponent::GetTexture()
+std::shared_ptr<elfgine::Texture2D> elfgine::RenderComponent::GetTexture() const
 {
 	return m_pTexture;
 }

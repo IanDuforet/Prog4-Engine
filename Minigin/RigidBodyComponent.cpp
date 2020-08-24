@@ -33,7 +33,6 @@ void elfgine::RigidBodyComponent::MoveDown(float value)
 
 void elfgine::RigidBodyComponent::Update(float deltaTime)
 {
-	
 	glm::vec2 pos = m_Transform.lock()->GetPosition();
 	glm::vec2 newPos{pos};
 

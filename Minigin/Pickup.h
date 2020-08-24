@@ -2,15 +2,22 @@
 #include "GameObject.h"
 namespace elfgine
 {
-	class Pickup : public GameObject
+	class Pickup final : public GameObject
 	{
 	public:
 		Pickup(const std::string& textureName, int value);
 		Pickup(const std::string& textureName, glm::vec2 position, int value);
-		int GetValue();
 		virtual ~Pickup() = default;
+		Pickup(const Pickup& other) = delete;
+		Pickup(Pickup&& other) = delete;
+		Pickup& operator=(const Pickup& other) = delete;
+		Pickup& operator=(Pickup&& other) = delete;
 
+		//Functions
+		int GetValue() const;
+		
 	private:
+		//Variable
 		int m_Value;
 
 	};

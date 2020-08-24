@@ -24,9 +24,13 @@ elfgine::Player::Player(const std::string& textureName, bool isActivePlayer)
 
 	//Collider
 	std::shared_ptr<ColliderComponent> colliderComponent = std::make_shared<ColliderComponent>(renderComponent->GetTextureWidth() - 20, 
-		renderComponent->GetTextureHeight() - 20, true, Tag::Player);
-	colliderComponent->AddColliderToCollection(colliderComponent);
+		renderComponent->GetTextureHeight() - 20, true, ColliderComponent::Tag::Player);
 	AddComponent(colliderComponent);
+}
+
+void elfgine::Player::SetShootCooldown(float cooldown)
+{
+	GetComponent<ControlComponent>()->SetShootCooldown(cooldown);
 }
 
 void elfgine::Player::SetSpeed(int speed)

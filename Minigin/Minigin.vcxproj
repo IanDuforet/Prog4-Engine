@@ -202,6 +202,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
     <ClInclude Include="CommandInputHandler.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ControlComponent.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Grid.h" />
@@ -232,14 +233,13 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y</Com
   <ItemGroup>
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandInputHandler.cpp" />
     <ClCompile Include="ControlComponent.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="ELFgine.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

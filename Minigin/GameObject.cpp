@@ -6,6 +6,13 @@
 #include "RenderComponent.h"
 #include "Transform.h"
 #include <algorithm>
+
+elfgine::GameObject::GameObject()
+	: m_pTransformComponent(std::make_shared<TransformComponent>(std::make_shared<Transform>(glm::vec2{0,0})))
+{
+	
+}
+
 void elfgine::GameObject::Update(float deltaTime)
 {
 	std::shared_ptr<Transform> p_transform = m_pTransformComponent->GetTransform();
@@ -22,12 +29,12 @@ void elfgine::GameObject::FixedUpdate()
 	
 }
 
-void elfgine::GameObject::SetPosition(float x, float y)
+void elfgine::GameObject::SetPosition(float x, float y) const
 {
 	m_pTransformComponent->SetPosition(x, y);
 }
 
-void elfgine::GameObject::SetPosition(glm::vec2 pos)
+void elfgine::GameObject::SetPosition(glm::vec2 pos) const
 {
 	m_pTransformComponent->SetPosition(pos);
 }
@@ -49,10 +56,6 @@ void elfgine::GameObject::AddComponent(std::shared_ptr<BaseComponent> pComponent
 	m_pComponents.push_back(pComponent);
 }
 
-elfgine::GameObject::GameObject()
-	: m_pTransformComponent(std::make_shared<TransformComponent>(std::make_shared<Transform>(glm::vec2{0,0})))
-{
-}
 
 void elfgine::GameObject::AddGameObjectToComponents(std::shared_ptr<GameObject> pGameObject)
 {
@@ -64,7 +67,6 @@ void elfgine::GameObject::AddGameObjectToComponents(std::shared_ptr<GameObject> 
 
 void elfgine::GameObject::RemoveComponent(std::shared_ptr<BaseComponent> pComponent)
 {
-
-		auto it = std::remove(m_pComponents.begin(), m_pComponents.end(), pComponent);
-		m_pComponents.erase(it, m_pComponents.end());
+	auto it = std::remove(m_pComponents.begin(), m_pComponents.end(), pComponent);
+	m_pComponents.erase(it, m_pComponents.end());
 }

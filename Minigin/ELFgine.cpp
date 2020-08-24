@@ -6,18 +6,8 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include <SDL.h>
-#include "TextObject.h"
-#include "GameObject.h"
-#include "Player.h"
-#include "Scene.h"
-#include "FPSCounter.h"
-#include "Components.h"
 #include "CommandInputHandler.h"
-#include "Pickup.h"
-#include "GameObserver.h"
-#include "GameManager.h"
-#include "Texture2D.h"
+#include <SDL.h>
 using namespace std;
 using namespace std::chrono;
 

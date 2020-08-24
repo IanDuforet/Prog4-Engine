@@ -6,17 +6,13 @@ namespace elfgine
 	class ELFgine
 	{
 	public:
+		//Functions
 		void Initialize(int windowWidth, int windowHeight);
-
 		void Cleanup();
 		void Run();
-
 	private:
-		
-		void CheckToDelete();
-		static const int m_msPerFrame = 16; //16 for 60 fps, 33 for 30 fps
+		//Variables
+		static const int m_msPerFrame = 16;
 		SDL_Window* m_Window{};
-		
-
 	};
 }

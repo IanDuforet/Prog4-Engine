@@ -7,8 +7,8 @@
 
 elfgine::TextObject::TextObject(const std::string& text, const std::string& fontName, const SDL_Color& color)
 	: GameObject()
-	, m_Text(text)
 	, m_NeedsUpdate(true)
+	, m_Text(text)
 	, m_pFont(nullptr)
 	, m_TextColor(color)	
 {
@@ -16,11 +16,6 @@ elfgine::TextObject::TextObject(const std::string& text, const std::string& font
 	std::shared_ptr<RenderComponent> pRc = std::make_shared<RenderComponent>(GetTransform());
 	AddComponent(pRc);
 	m_pRenderComponent = pRc;
-}
-
-elfgine::TextObject::~TextObject()
-{
-	
 }
 
 void elfgine::TextObject::Update(float deltaTime)

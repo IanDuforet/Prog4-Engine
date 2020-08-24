@@ -22,17 +22,19 @@ namespace elfgine
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		//Fucntions
 		std::shared_ptr<Command> ProcessInput();
 		std::shared_ptr<Command> ProcessContinuous();
 		bool HasQuit() const;
 		bool IsPressed(ControllerButton button) const;
 	private:
+		//Variables
 		XINPUT_STATE m_CurrentState{};
 		std::shared_ptr<MoveLeft> m_pMoveLeft{std::make_shared<MoveLeft>()};
 		std::shared_ptr<MoveUp> m_pMoveUp{ std::make_shared<MoveUp>() };
 		std::shared_ptr<MoveRight> m_pMoveRight{ std::make_shared<MoveRight>() };
 		std::shared_ptr<MoveDown> m_pMoveDown{ std::make_shared<MoveDown>() };
-		std::shared_ptr<Shoot> m_Shoot{ std::make_shared<Shoot>() };
+		std::shared_ptr<Shoot> m_pShoot{ std::make_shared<Shoot>() };
 		bool m_Quit{false};
 	};
 
